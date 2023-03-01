@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 // @ parse form file data and send file infomation
-app.post('/api', (req, res) => {
+app.post('/api/fileanalyse', (req, res) => {
     const getFile = formidable({multiples: true});
     getFile.parse(req, (err, field, file) => {
         const {upfile: upFile} = file;
