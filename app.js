@@ -1,12 +1,24 @@
 const express = require('express');
-const multer = require('multer');
-require('dotenv').config()
+require('dotenv').config();
+const formidable = require('formidable')
 const app = express();
 
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
+// @ render index.html page
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/views/index.html')
+});
 
-app.route('/').get((req, res) => {res.sendFile(__dirname + '/views/index.html')}).post((req, res) => {})
-
+// @ parse form file data and send file infomation
+app.post('/api', (req, res) => {
+    const getFile = formidable({multiples: true});
+    getFile.parse(req, (err, field, file) => {
+        const {upfile: upFile} = file;
+        res.status(200).json({name: upFile.originalFilename, type: upFile.mimetype, size: upFile.size})
+    })
+})
 
 
 
