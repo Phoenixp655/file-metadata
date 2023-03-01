@@ -2,9 +2,13 @@ const express = require('express');
 require('dotenv').config();
 const formidable = require('formidable')
 const app = express();
+const cors = require('cors')
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
+
+app.use(cors({optionsSuccessStatus: 200}))
 
 // @ render index.html page
 app.get('/', (req, res) => {
